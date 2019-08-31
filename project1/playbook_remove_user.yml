@@ -1,0 +1,12 @@
+---
+- hosts:
+  - aws
+  vars:
+    username: ansible
+  tasks:
+  - name: Remove the user '"{{ username }}"'
+    user:
+      name: "{{ username }}"
+      state: absent
+      remove: yes
+    become: yes

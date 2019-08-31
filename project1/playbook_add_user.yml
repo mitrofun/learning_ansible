@@ -1,0 +1,40 @@
+---
+- hosts:
+  - aws
+  become: yes
+  vars:
+    username: ansible
+    password: 'password'
+    public_key: '/home/ysj/.ssh/id_rsa.pub'
+
+  tasks:
+   - name: Add a new username
+     user: 
+        name: "{{ username }}"
+        password: "{{ password }}" 
+        update_password: on_create
+    
+   - name: Add user to the sudoers
+     copy:
+        dest: "/etc/sudoers.d/{{ username }}"
+        content: "{{ username }}  ALL=(ALL)  NOPASSWD: ALL"
+
+   - name: Deploy SSH Key
+     authorized_key: 
+          user={{ username }} 
+          key="{{ lookup('file', '{{ public_key }}') }}" 
+          state=present
+
+   - name: Disable Password Authentication
+     lineinfile:
+          dest=/etc/ssh/sshd_config
+          regexp='^PasswordAuthentication'
+          line="PasswordAuthentication no"
+          state=present
+          backup=yes
+
+  handlers:
+   - name: restart ssh
+     service:
+       name=sshd
+       state=restarted   

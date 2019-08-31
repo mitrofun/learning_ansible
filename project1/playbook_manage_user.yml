@@ -2,12 +2,13 @@
 - hosts:
   - aws
   vars:
-    username: ysj
+    username: ansible
+    password: password
   tasks:
   - name: Create a 2048-bit SSH key for user ysj in ~ysj/.ssh/id_rsa
     user:
       name: "{{ username }}"
-      password: "{{ 'password' | password_hash('sha512') }}"
+      password: "{{ '{{ password }}' | password_hash('sha512') }}"
       update_password: on_create
       generate_ssh_key: yes
       ssh_key_bits: 2048
@@ -15,11 +16,11 @@
     become: yes
 
 
-
 - hosts:
   - aws
   vars:
-    username: ysj
+    username: ansible
+    password: password
   tasks:
   - name: Ensure group "admin" exists
     group:
@@ -30,7 +31,7 @@
     user:
       name: "{{ username }}1"
       comment: "{{ username }}1"
-      password: "{{ 'password' | password_hash('sha512') }}"
+      password: "{{ '{{ password }}' | password_hash('sha512') }}"
       uid: 1040
       group: admin
     become: yes
