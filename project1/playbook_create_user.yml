@@ -1,0 +1,47 @@
+---
+- hosts:
+  - aws
+  vars:
+    username: ysj
+  tasks:
+  - name: Create a 2048-bit SSH key for user ysj in ~ysj/.ssh/id_rsa
+    user:
+      name: "{{ username }}"
+      password: "{{ 'password' | password_hash('sha512') }}"
+      update_password: on_create
+      generate_ssh_key: yes
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/id_rsa
+    become: yes
+
+
+
+- hosts:
+  - aws
+  vars:
+    username: ysj
+  tasks:
+  - name: Ensure group "admin" exists
+    group:
+      name: admin
+      state: present
+    become: yes
+  - name: Add the user 'ysj' with a specific uid and a primary group of 'admin'
+    user:
+      name: "{{ username }}1"
+      comment: "{{ username }}1"
+      password: "{{ 'password' | password_hash('sha512') }}"
+      uid: 1040
+      group: admin
+    become: yes
+  - name: Remove the user '"{{ username }}1"'
+    user:
+      name: "{{ username }}1"
+      state: absent
+      remove: yes
+    become: yes
+  - name: Ensure group "admin" is absent
+    group:
+      name: admin
+      state: absent
+    become: yes
