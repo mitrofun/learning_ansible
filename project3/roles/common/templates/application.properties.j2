@@ -1,0 +1,8 @@
+server.name=server{{ server_id }}
+process.name={{ process_name }}
+run.forever={{ run_forever }}
+{% if item.type is defined %}
+type={{ item.type }}
+{% else %}
+type={{ type }}
+{% endif %}

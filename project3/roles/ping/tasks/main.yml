@@ -1,0 +1,4 @@
+ansible-playbook -i inventories/production/hosts  playbook_ping.yml---
+- name: ping servers
+  action: ping
+
