@@ -6,12 +6,14 @@
 
 - name: Deploy Hello World Jar to all servers
   synchronize:
-    src:  hello_world
+    src:  hello_world/
     dest: "/home/ansible/hello_world_{{ server_id }}_{{ item.id }}"
+    delete: yes
+    recursive: yes
   loop: "{{ process }}" 
 
 - name: Template a file to server
   template:
     src: application.properties.j2
-    dest: "/home/ansible/hello_world_{{ server_id }}_{{ item.id }}/hello_world/config/application.properties"
+    dest: "/home/ansible/hello_world_{{ server_id }}_{{ item.id }}/config/application.properties"
   loop: "{{ process }}" 
