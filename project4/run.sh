@@ -1,5 +1,5 @@
 
-#Deploy applications and configurations
+#Cronjob management
 ansible-playbook playbook_cron.yml -i inventories
 
 
