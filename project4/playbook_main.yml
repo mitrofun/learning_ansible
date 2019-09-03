@@ -1,0 +1,7 @@
+---
+- hosts:
+  - aws
+  remote_user: ansible
+  roles:
+  #- ping
+  - common

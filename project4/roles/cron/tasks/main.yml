@@ -1,0 +1,25 @@
+---
+- name: ping servers
+  action: ping
+
+- name: Root user Add new cronjob
+  cron:
+    name: "Hello_World_Job"
+    minute: "1"
+    hour: "5,2"
+    job: "echo 'hello world'"
+    user: root
+  become: yes
+
+- name: 'Root user Remove cronjob by "#Ansible: Hello_World_Job" from the crontab'
+  cron:
+    name: "Hello_World_Job"
+    state: absent
+    user: root
+  become: yes
+
+
+- include_tasks: sub_main.yml
+  with_items: "{{ process }}" 
+  loop_control:
+    loop_var: processes

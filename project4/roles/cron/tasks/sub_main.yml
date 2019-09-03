@@ -1,0 +1,10 @@
+---
+- name: Add new cronjob
+  cron:
+    name: "Hello_World_Job_{{ processes.id }}{{ item.id }}"
+    minute: "1"
+    hour: "{{ item.hour }}"
+    weekday: "2"
+    job: "echo 'Hello_World_{{ processes.id }}{{ item.id }}'"
+  with_items: "{{ processes.schedule }}" 
+  when: item is defined
