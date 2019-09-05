@@ -1,4 +1,4 @@
 ---
 process_name: hello_world
-run_forever: "false"
+run_forever: false
 type: type1

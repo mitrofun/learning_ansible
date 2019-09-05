@@ -39,3 +39,12 @@
 
   - name: systemctl enable supervisord
     shell: systemctl enable supervisord
+
+  - name: yum install -y java-1.8.0-openjdk
+    yum: name=java-1.8.0-openjdk state=latest
+
+  - shell: java -version
+    register: java_version
+
+  - debug: 
+      msg: "{{ java_version.stderr_lines[0] }}"

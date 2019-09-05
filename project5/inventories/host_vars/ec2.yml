@@ -1,0 +1,6 @@
+---
+server_id: 2
+process:
+  - id: 1
+    type: type100
+  - id: 2

@@ -1,0 +1,62 @@
+---
+
+# - name: "sync supervisord.conf"
+#   synchronize:
+#     src: supervisord.conf
+#     dest: "/etc/supervisor/supervisord.conf"
+#   become: yes
+
+# - name: "Template a conf file to server {{ server_id }} and {{ item.id }}"
+#   template:
+#     src: conf.d/hello_world.conf.j2
+#     dest: "/etc/supervisor/conf.d/hello_world_{{ server_id }}_{{ item.id }}.conf"
+#   become: yes
+#   with_items: "{{ process }}"
+
+# - name: "supervisorctl reread"
+#   shell: "supervisorctl reread"
+#   become: yes
+
+
+# - name: "supervisorctl update"
+#   shell: "supervisorctl update"
+#   become: yes
+
+
+# - name: Reboot node and stop polling.
+#   shell: reboot
+#   async: 10 # Do not care for 10 sec
+#   poll: 0 # Fire & Forget
+
+
+# - name: wait for host to finish reb00t
+#   wait_for:
+#     port: "{{ (ansible_port|default(ansible_ssh_port))|default(22) }}"
+#     host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+#     search_regex: OpenSSH
+#     delay: 10  # Do not check for at least 10 sec
+#   connection: local
+
+# - name: "run supervisord"
+#   shell: /bin/supervisord
+#   become: yes
+
+- name: "supervisorctl restart all"
+  shell: "supervisorctl restart all"
+  become: yes
+
+- name: "check supervisor status"
+  shell: "supervisorctl status all"
+  register: supervisor_result
+  become: yes
+
+- name: "check supervisor status"
+  shell: "supervisorctl status all"
+  register: supervisor_result
+  become: yes
+
+
+- name: print supervisor status 
+  debug:
+    msg: "{{ supervisor_result.stdout_lines }}"
+

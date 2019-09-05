@@ -1,0 +1,19 @@
+---
+server_id: 1
+process:
+  - id: x
+    schedule:
+      - id: 1 
+        hour: 3 
+      - id: 2
+        hour: 3 
+      - id: 3
+        hour: 3 
+      - id: 4
+        hour: 3 
+  - id: y
+    schedule:
+      - id: 1
+        hour: "1,5"
+      - id: 2
+        hour: 1 

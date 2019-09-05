@@ -1,0 +1,11 @@
+[program:hello_world_{{ server_id }}_{{ item.id }}]
+autostart = true
+autorestart = true
+command = java -jar /home/ansible/hello_world_{{ server_id }}_{{ item.id }}/hello_world.jar /home/ansible/hello_world_{{ server_id }}_{{ item.id }}/config/application.properties
+autostart=true
+autorestart=true
+startretries=3
+stopasgroup=true
+; DISABLE THIS IT WILL GROW BIGGER, FOR TESTING JUST ENABLE THIS
+stderr_logfile=/home/ansible/hello_world_{{ server_id }}_{{ item.id }}/logs/dev_supervisor.err.log
+stdout_logfile=/home/ansible/hello_world_{{ server_id }}_{{ item.id }}/logs/dev_supervisor.out.log
