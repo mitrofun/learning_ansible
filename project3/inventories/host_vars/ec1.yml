@@ -2,4 +2,6 @@
 server_id: 1
 process:
   - id: x
+    priority: A
   - id: y
+    priority: B

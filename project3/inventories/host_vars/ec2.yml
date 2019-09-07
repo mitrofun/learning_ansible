@@ -3,4 +3,6 @@ server_id: 2
 process:
   - id: 1
     type: type100
+    priority: B
   - id: 2
+    priority: C

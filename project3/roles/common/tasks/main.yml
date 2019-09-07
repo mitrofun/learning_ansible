@@ -1,7 +1,8 @@
 ---
+
 - name: Display all processes for all servers
   debug:
-    msg: "hello_world_{{ server_id }}_{{ item.id }}"
+    msg: "hello_world_{{ server_id }}_{{ item.id }} priority is {{ item.priority }} {{ priorites[item.priority] }}"
   loop: "{{ process }}" 
 
 - name: Deploy Hello World Jar to all servers
